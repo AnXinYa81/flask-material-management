@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}编辑物资{% endblock %}
+
+{% block content %}
+<h2>编辑物资</h2>
+
+<form method="post">
+    <div>
+        物资名称：
+        <input type="text" name="title" value="{{ item.title }}" required>
+    </div>
+    <div>
+        库存：
+        <input type="number" name="stock" value="{{ item.stock }}" required>
+    </div>
+    <div>
+        描述：
+        <textarea name="description">{{ item.description }}</textarea>
+    </div>
+    <br>
+    <button type="submit">保存修改</button>
+</form>
+<br>
+{% endblock %}
+

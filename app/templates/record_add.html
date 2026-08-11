@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}物资领用登记{% endblock %}
+{% block content %}
+    <h2>物资领用登记</h2>
+    <form method="post">
+        <div>
+            <label>选择物资：</label>
+            <select name="goods_id">
+                {% for item in goods_list %}
+                    <option value="{{ item.id }}">{{ item.title }}|现有库存：{{ item.stock }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>领用数量：</label>
+            <input type="number" name="take_num" min="1" required>
+        </div>
+        <div>
+            <button type="submit">提交领用</button>
+        </div>
+    </form>
+    <br>
+{% endblock %}
+
+

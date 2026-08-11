@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}物资管理列表{% endblock %}
+{% block content %}
+    <h2>物资管理列表</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>物资名称</th>
+            <th>库存</th>
+            <th>描述</th>
+            <th>操作</th>
+        </tr>
+        <!-- jinja2 for循环，后端传过来goods_list列表，循环取出每一条goods对象 -->
+        {% for goods in goods_list %}
+            <tr>
+                <td>{{ goods.id }}</td>
+                <td>{{ goods.title }}</td>
+                <td>{{ goods.stock }}</td>
+                <td>{{ goods.description }}</td>
+                <td>
+                    <!--跳转GET，携带id-->
+                    <a href="/goods/edit/{{ goods.id }}">编辑</a>
+                    <!--删除POST，禁止a标签get删除-->
+                    <form action="/goods/del/{{ goods.id }}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('确定删除这条物资吗？')">删除</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">暂无物资数据，请先去新增物资</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <div>
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('goods.goods_list', page=pagination.prev_num) }}">上一页</a>
+        {% endif %}
+        <span>第{{ pagination.page }}页 / 共{{ pagination.pages }}页</span>
+        {% if pagination.has_next %}
+            <a href="{{ url_for('goods.goods_list', page=pagination.next_num) }}">下一页</a>
+        {% endif %}
+    </div>
+    <a href="{{ url_for('auth.logout') }}">退出登录</a>
+{% endblock %}

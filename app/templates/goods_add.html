@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}新增物资{% endblock %}
+{% block content %}
+    <h3>新增物资</h3>
+    <form method="POST">
+        物资名称：<input type="text" name="title"><br><br>
+        库存数量：<input type="number" name="stock"><br><br>
+        物资描述：<input type="text" name="description"><br><br>
+        <button type="submit">提交保存物资</button>
+    </form>
+{% endblock %}

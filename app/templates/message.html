@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}操作提示{% endblock %}
+
+{% block content %}
+    <div>
+        {% if is_error %}
+            <h3 class="tip-error">{{ msg }}</h3>
+        {% else %}
+            <h3 class="tip-success">{{ msg }}</h3>
+        {% endif %}
+        <br>
+        <a href="{{ back_url }}"></a>
+    </div>
+{% endblock %}
