@@ -1,5 +1,5 @@
 # app/routes/record.py
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for,session
 # 跨包导入模型与db对象
 from app.models import db, Goods, Record
 from app import login_required
@@ -37,7 +37,7 @@ def record_add():
                                    back_url=url_for("record.record_add"))
 
         try:
-            new_record = Record(goods_id=goods_item.id, take_num=take_num)
+            new_record = Record(goods_id=goods_item.id, take_num=take_num,user_id=session["user_id"])
             db.session.add(new_record)
             goods_item.stock = goods_item.stock - take_num
             db.session.commit()

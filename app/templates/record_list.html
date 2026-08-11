@@ -3,49 +3,51 @@
 {% block title %}全部领用流水记录{% endblock %}
 {% block content %}
 
-    <h2>全部领用流水记录</h2>
-    <br>
-    <table>
-        <tr>
-            <th>记录ID</th>
-            <th>物资名称</th>
-            <th>领用数量</th>
-            <th>领用时间</th>
-        </tr>
-        {% for r in record_list %}
-            <tr>
-                <td>{{ r.id }}</td>
-                {% if r.goods %}
-                    <td>{{ r.goods.title }}</td>
-                {% else %}
-                    <td style="color:#999;">【物资已删除】</td>
-                {% endif %}
-
-                <td>{{ r.take_num }}</td>
-
-                {% if r.create_time %}
-                    <!--注意：这里的横杠是键盘普通减号 - ，不要复制特殊符号！！-->
-                    <td>{{ r.create_time.strftime("%Y-%m-%d %H:%M:%S") }}</td>
-                {% else %}
-                    <td>无时间</td>
-                {% endif %}
-            </tr>
+<h2>全部领用流水记录</h2>
+<br>
+<table>
+    <tr>
+        <th>记录ID</th>
+        <th>物资名称</th>
+        <th>领用数量</th>
+        <th>领用时间</th>
+        <th>操作人</th>
+    </tr>
+    {% for r in record_list %}
+    <tr>
+        <td>{{ r.id }}</td>
+        {% if r.goods %}
+        <td>{{ r.goods.title }}</td>
         {% else %}
-            <tr>
-                <td colspan="4">暂无领用记录</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <div>
-        {% if pagination.has_prev %}
-            <a href="{{ url_for('record.record_list', page=pagination.prev_num) }}">上一页</a>
+        <td style="color:#999;">【物资已删除】</td>
         {% endif %}
-        <span>第{{ pagination.page }}页 / 共{{ pagination.pages }}页</span>
-        {% if pagination.has_next %}
-            <a href="{{ url_for('record.record_list', page=pagination.next_num) }}">下一页</a>
+
+        <td>{{ r.take_num }}</td>
+
+        {% if r.create_time %}
+        <!--注意：这里的横杠是键盘普通减号 - ，不要复制特殊符号！！-->
+        <td>{{ r.create_time.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+        {% else %}
+        <td>无时间</td>
         {% endif %}
-    </div>
-    <a href="{{ url_for('auth.logout') }}">退出登录</a>
+        <td>{{ r.user.username }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5">暂无领用记录</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<div>
+    {% if pagination.has_prev %}
+    <a href="{{ url_for('record.record_list', page=pagination.prev_num) }}">上一页</a>
+    {% endif %}
+    <span>第{{ pagination.page }}页 / 共{{ pagination.pages }}页</span>
+    {% if pagination.has_next %}
+    <a href="{{ url_for('record.record_list', page=pagination.next_num) }}">下一页</a>
+    {% endif %}
+</div>
+<a href="{{ url_for('auth.logout') }}">退出登录</a>
 
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}管理员管理{% endblock %}
+{% block content %}
+<h2>管理员列表</h2>
+<p style="text-align: right;">
+    <a href="{{ url_for('auth.admin_add') }}">➕ 添加管理员</a>
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>账号</th>
+            <th>角色</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>
+                {% if user.role == 'super_admin' %}
+                <span class="role-tag role-super">超级管理员</span>
+                {% else %}
+                <span class="role-tag role-admin">普通管理员</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if user.id != session.get('user_id') %}
+                <form method="post" action="{{ url_for('auth.admin_del', uid=user.id) }}" style="display:inline;" onsubmit="return confirm('确定删除该管理员吗？');">
+                    <button type="submit" class="btn-del">删除</button>
+                </form>
+                {% else %}
+                <span style="color:#999;">当前账号</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" style="text-align:center; color:#999;">暂无管理员数据</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

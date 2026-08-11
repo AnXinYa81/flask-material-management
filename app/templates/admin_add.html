@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}添加管理员{% endblock %}
+{% block content %}
+<h2>添加管理员</h2>
+<form method="post" style="max-width: 400px;">
+    <div>
+        <label>账号：</label>
+        <input type="text" name="username" required style="width: 100%;">
+    </div>
+    <div>
+        <label>初始密码：</label>
+        <input type="password" name="password" required style="width: 100%;">
+    </div>
+    <div>
+        <label>角色：</label>
+        <select name="role" style="width: 100%;">
+            <option value="admin">普通管理员</option>
+            <option value="super_admin">超级管理员</option>
+        </select>
+    </div>
+    <div style="margin-top: 16px;">
+        <button type="submit" style="padding: 8px 24px;">确认添加</button>
+        <a href="{{ url_for('auth.admin_list') }}" style="margin-left: 12px;">取消</a>
+    </div>
+</form>
+{% endblock %}
