@@ -15,16 +15,18 @@ def login_required(func):
 
     return wrapper
 
+
 def admin_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if not session.get("user_id"):
             return redirect(url_for("auth.login"))
-        user =User.query.get(session["user_id"])
-        if not user or user.role!= "super_admin":
-            return render_template("message.html", is_error=True,msg="权限不足，仅超级管理员可访问",
+        user = User.query.get(session["user_id"])
+        if not user or user.role != "super_admin":
+            return render_template("message.html", is_error=True, msg="权限不足，仅超级管理员可访问",
                                    back_url=url_for("goods.goods_list"))
         return func(*args, **kwargs)
+
     return wrapper
 
 
@@ -59,3 +61,4 @@ def create_app():
                                back_url=url_for("goods.goods_list")), 500
 
     return app
+

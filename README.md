@@ -21,6 +21,26 @@
 
 ---
 
+## 📸 运行截图
+
+### 登录页
+![登录页](./screenshots/login.png)
+
+### 首页
+![物资列表](./screenshots/homepage.png)
+
+### 新增物资
+![新增物资](./screenshots/add.png)
+
+### 领用记录
+![领用记录](./screenshots/receive.png)
+
+### 领用流水
+![领用流水](./screenshots/usage_record.png)
+
+### 管理员管理
+![管理员管理](./screenshots/administrator.png)
+
 ## 技术栈 | Tech Stack
 
 - Python 3.8+
