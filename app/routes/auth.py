@@ -1,5 +1,5 @@
 # app/routes/auth.py
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session,flash
 from app.models import db, User
 from app import admin_required
 
@@ -15,14 +15,14 @@ def login():
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "").strip()
         if not username or not password:
-            return render_template("message.html", is_error=True, msg="账号密码不能为空",
-                                   back_url=url_for("auth.login"))
+            flash("账号密码不能为空","error")
+            return redirect(url_for("auth.login"))
 
         user = User.query.filter_by(username=username).first()
         # 判断用户是否存在、密码校验
         if not user or not user.check_password(password):
-            return render_template("message.html", is_error=True, msg="账号或者密码错误",
-                                   back_url=url_for("auth.login"))
+            flash("账号或密码错误","error")
+            return redirect(url_for("auth.login"))
 
         # 登录成功，把用户id存入session
         session["user_id"] = user.id

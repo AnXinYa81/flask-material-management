@@ -105,11 +105,15 @@
         <h1>📦 物资管理系统</h1>
         <p class="subtitle">请登录您的账号</p>
 
-        {% if error %}
-        <div class="tip-error">{{ error }}</div>
-        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                   <div class="tip-error">{{message}}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-        <form method="post">
+        <form method="post" action="{{ url_for('auth.login')}}">
             <div class="form-group">
                 <label>账号</label>
                 <input type="text" name="username" required autofocus>
